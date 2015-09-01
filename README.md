@@ -10,7 +10,7 @@ pip install -r requirements/default.txt
 ### for dev
 
 ```
-pip install -r requirements/dev/txt
+pip install -r requirements/dev.txt
 ```
 
 

@@ -38,7 +38,8 @@ class WechatMessageProxy(LoggingTrait):
         if message is not None:
             self.message_proxy_worker.proxy_message(message)
             return
-
-        self.get_logger().error(
-            "{} parse message xml failed\n{}".format(type(self.parser), message_xml)
-        )
+        
+        # 忽略不能被解析的消息
+        # self.get_logger().error(
+        #     "{} parse message xml failed\n{}".format(type(self.parser), message_xml)
+        # )

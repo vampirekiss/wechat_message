@@ -39,6 +39,7 @@ class WechatMessageProxy(LoggingTrait):
             self.message_proxy_worker.proxy_message(message)
             return
 
-        self.get_logger().error(
-            "{} parse message xml failed\n{}".format(type(self.parser), message_xml)
-        )
+        # 忽略不能解析的消息
+        # self.get_logger().error(
+        #     "{} parse message xml failed\n{}".format(type(self.parser), message_xml)
+        # )

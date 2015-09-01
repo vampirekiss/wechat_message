@@ -98,7 +98,7 @@ a {
 }
 
 .icon16_common.add_gray {
-    background: url("static/images/base_z27bb72.png") 0 -4282px no-repeat;
+    background: url("../images/base_z27bb72.png") 0 -4282px no-repeat;
 }
 
 .icon14_common {
@@ -111,7 +111,7 @@ a {
 }
 
 .icon14_common.add_gray {
-    background: url("static/images/base_z27bb72.png") 0 -3447px no-repeat;
+    background: url("../images/base_z27bb72.png") 0 -3447px no-repeat;
 }
 
 .menu_op {
@@ -204,7 +204,7 @@ a {
 }
 
 .pop_closed {
-    background: url("static/images/base_z27bb72.png") 0 -2757px no-repeat;
+    background: url("../images/base_z27bb72.png") 0 -2757px no-repeat;
     position: absolute;
     top: 50%;
     margin-top: -8px;
@@ -365,5 +365,5 @@ a {
 }
 
 .icon_menu_action.add {
-    background: url("static/images/advanced_menu_setting_z25404f.png") 0 0 no-repeat;
+    background: url("../images/advanced_menu_setting_z25404f.png") 0 0 no-repeat;
 }

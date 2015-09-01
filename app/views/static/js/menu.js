@@ -155,7 +155,7 @@ function MenuCtrl($scope, $http) {
         }
         var json = angular.toJson(buttons);
         var promise = $http({
-            'url': './menu',
+            'url': 'menu',
             'method': 'POST',
             'data': json,
             'headers': {'Content-Type': 'application/json'}

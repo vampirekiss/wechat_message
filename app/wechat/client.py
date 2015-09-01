@@ -47,5 +47,4 @@ class WechatClient(object):
             url, method='POST',
             headers={"Content-Type": "application/json"}, body=menus_json_str
         )
-        print url
         raise Return(json.loads(response.body))

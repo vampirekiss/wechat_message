@@ -29,6 +29,9 @@ with open(config_file) as f:
 
 _service_provider = ServiceProvider(IOLoop.current(), config)
 
+_user, _password = tuple(config.get('auth').get('basic'))
+_basic_auth_compare_func = lambda u, p: u == _user and p == _password
+
 request_handlers = [
     # API handlers
     (
@@ -48,6 +51,7 @@ request_handlers = [
     (
         r"/api/v1/menu", MenuHandler,
         dict(
+            auth_compare_func=_basic_auth_compare_func,
             wechat_client=_service_provider.wechat_client,
             wechat_access_token_provider=_service_provider.wechat_access_token_provider
         )
@@ -56,6 +60,7 @@ request_handlers = [
     (
         r"/menu", MenuViewHandler,
         dict(
+            auth_compare_func=_basic_auth_compare_func,
             wechat_client=_service_provider.wechat_client,
             wechat_access_token_provider=_service_provider.wechat_access_token_provider
         )

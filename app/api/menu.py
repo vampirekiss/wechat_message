@@ -2,19 +2,19 @@
 from __future__ import absolute_import
 
 from tornado.gen import coroutine
-from app.api import TokenHolderHandler
+from app.api import TokenHolderHandler, BasicAuthHandlerMixin
 
 import json
 
 
-class MenuHandler(TokenHolderHandler):
+class MenuHandler(TokenHolderHandler, BasicAuthHandlerMixin):
     _caches = {
         'menu_changed': False,
         'menu': None
     }
 
-    def initialize(self, wechat_client, wechat_access_token_provider):
-        super(MenuHandler, self).initialize(wechat_access_token_provider)
+    def initialize(self, wechat_client, wechat_access_token_provider, **kwargs):
+        super(MenuHandler, self).initialize(wechat_access_token_provider, **kwargs)
         self.wechat_client = wechat_client
         self._caches = MenuHandler._caches
 

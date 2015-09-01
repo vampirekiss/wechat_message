@@ -1,4 +1,7 @@
 {
+  "auth": {
+    "basic": ["admin", "123456"]
+  },
   "wechat": {
     "api_url": "https://api.weixin.qq.com/cgi-bin",
     "app_id": "{{wechat_app_id}}",

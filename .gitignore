@@ -1,0 +1,3 @@
+*.py[cod]
+app/config.json
+.idea/

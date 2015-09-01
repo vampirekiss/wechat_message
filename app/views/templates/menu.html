@@ -1,0 +1,138 @@
+{% extends "_layout.html" %}
+
+{% block body %}
+
+<script type="text/javascript" src="/static/js/menu.js"></script>
+
+<div ng-controller="MenuCtrl">
+
+    <div class="mask hidden" data-ng-class="show_dialog_class" id="mask"></div>
+
+    <div id="dialog" class="dialog_wrp hidden" data-ng-class="show_dialog_class" style="width: 726px;">
+        <div class="dialog">
+            <div class="dialog_hd">
+                <h3>
+                    <p data-ng-if="!is_rename_menu">
+                        <span data-ng-if="is_add_root_button">添加一级菜单</span>
+                        <span data-ng-if="!is_add_root_button">添加二级菜单</span>
+                    <p>
+                    <span data-ng-if="is_rename_menu">重命名菜单</span>
+                </h3>
+                <a href="javascript:;" onclick="return false" class="pop_closed dialog_closed" data-ng-click="dialog_close()">关闭</a>
+            </div>
+            <div class="dialog_bd">
+                <div class="dialog_content">
+                    <form method="post" class="form" onsubmit="return false;" novalidate="novalidate">
+                        <div class="frm_control_group">
+                            <label class="frm_label">请输入菜单名称（8个汉字或16个字母以内）</label>
+                        <span class="frm_input_box">
+                            <input type="text" class="frm_input" data-ng-model="dialog_menu_name" maxlength="16" autofocus/>
+                        </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="dialog_ft tool_bar">
+                <button type="button" class="btn btn_primary" data-ng-click="dialog_confirm()">确认</button>
+                <button type="button" class="btn btn_default dialog_closed" data-ng-click="dialog_close()">取消</button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="menu_setting" id="menu_setting">
+        <div class="menu_setting_area">
+            <p class="menu_setting_tips">可创建最多3个一级菜单，每个一级菜单下可创建最多5个二级菜单。</p>
+
+            <div class="menu_setting_layout">
+                <div class="cell cell-left">
+                    <div class="title_bar menu_items">
+                        <h4>菜单管理</h4>
+                        <div class="icons">
+                            <a class="icon16_common add_gray" href="javascript:void(0);" title="添加一级菜单" data-ng-click="add_root_menu()">添加</a>
+                        </div>
+                    </div>
+                    <div class="menu_list">
+
+                        <dl class="inner_menu_item" data-ng-repeat="button in buttons">
+                            <dt>
+                                <a href="javascript:void(0);" class="inner_menu_link"
+                                   data-ng-class="selected_button == button ? 'selected': ''"
+                                   data-ng-bind="button.name" data-ng-click="add_menu(button)"></a>
+                            <span class="menu_opr">
+                                <a href="javascript:void(0);" class="icon14_common add_gray" title="添加二级菜单" data-ng-click="dialog_set_menu(button)">添加</a>
+                            </span>
+                            </dt>
+                            <dd data-ng-repeat="sub_button in button.sub_button">
+                                <a href="javascript:void(0);" class="inner_menu_link"
+                                   data-ng-class="selected_button == sub_button ? 'selected': ''"
+                                   data-ng-bind="sub_button.name" data-ng-click="add_menu(sub_button, true)"></a>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+
+                <div class="cell cell-right">
+                    <div class="title_bar menu_op">
+                        <div class="hidden" data-ng-class="selected_button ? 'show': 'hidden'">
+                            <div class="menu_op_item">
+                                <a href="javascript:void(0);" data-ng-click="rename_menu()">重命名</a>
+                                <a href="javascript:void(0);" data-ng-click="remove_menu()">删除</a>
+                            </div>
+                            <div class="menu_op_tip">
+                                <span data-ng-if="!selected_sub_button">一级菜单：</span>
+                                <span data-ng-if="selected_sub_button">二级菜单：</span>
+                                <span data-ng-bind="selected_button.name"></span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="menu_content">
+                        <p class="action_tips hidden" data-ng-class="selected_button ? 'hidden' : 'show'">你可以点击左侧菜单或添加一个新菜单，然后设置菜单内容</p>
+                        <p class="action_tips hidden" data-ng-class="add_submenu_show_class">
+                            已为“<span data-ng-bind="current_button_name"></span>”添加了二级菜单，无法设置其他内容。
+                        </p>
+                        <a href="javascript:void(0);" class="hidden"
+                           data-ng-class="add_submenu_show_class" data-ng-click="dialog_set_menu()">
+                            <i class="icon_menu_action add"></i>
+                            <strong>添加二级菜单</strong>
+                        </a>
+
+                        <div class="action_content" data-ng-repeat="button in all_buttons">
+                            <div class="action_url hidden" data-ng-class="action_url_show_class[button.$$hashKey]">
+                                <p class="action_tips">订阅者点击该子菜单会跳到以下链接</p>
+                                <div class="frm_control_group">
+                                    <label class="frm_label">页面地址</label>
+
+                                    <div class="frm_controls">
+                                        <span class="frm_input_box">
+                                            <input type="text" class="frm_input" data-ng-model="button.url" autofocus />
+                                        </span>
+
+                                        <p class="frm_msg fail" style="display: none;">
+                                            <span class="frm_msg_content" style="display: inline;">请输入正确的URL</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="tool_bar">
+            <a href="javascript:void(0);" class="btn btn_primary" data-ng-click="save_menu()">保存并发布</a>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    var button_json = '{{json_encode(buttons)}}'.replace(/&quot;/g, '"');
+    var buttons = eval('(' + button_json + ')');
+</script>
+
+{% end %}

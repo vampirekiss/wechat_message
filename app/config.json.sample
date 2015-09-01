@@ -1,0 +1,16 @@
+{
+  "wechat": {
+    "api_url": "https://api.weixin.qq.com/cgi-bin",
+    "app_id": "{{wechat_app_id}}",
+    "secret": "{{wechat_secret}}",
+    "token": "{{wechat_token}}"
+  },
+  "missfresh": {
+    "token": "{{missfresh_token}}",
+    "api_url": "{{missfresh_api_url}}" // http://as.staging.missfresh.cn/v1
+  },
+  "live800": {
+    "token": "{{live800_token}}",
+    "api_url": "{{live800_api_url}}"
+  }
+}

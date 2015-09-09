@@ -77,11 +77,11 @@ class WechatEventSetting(object):
             raise ValueError("setting must be a dict instance")
 
         if setting_file:
-            with open(setting_file) as f:
-                try:
+            try:
+                with open(setting_file) as f:
                     setting = pickle.load(f)
-                except:
-                    setting = {}
+            except:
+                setting = {}
 
         self._setting_file = setting_file
         self._setting = self._merge_setting(setting)

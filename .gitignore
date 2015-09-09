@@ -1,3 +1,4 @@
 *.py[cod]
-app/config.json
 .idea/
+app/config.json
+app/event_setting.cfg

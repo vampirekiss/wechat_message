@@ -6,6 +6,9 @@ from app.views import ViewHandlerMixin
 
 
 class MenuViewHandler(MenuHandler, ViewHandlerMixin):
+
+    _view_name = 'menu'
+
     def _output_menu_response(self, menu):
         buttons = menu.get('button', [])
         self.render_template('menu.html', buttons=buttons)

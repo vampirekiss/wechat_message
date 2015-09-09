@@ -38,7 +38,7 @@ class WechatMessageProxyWorkerTestCase(AsyncTestCase, TestCaseMixin):
 
         self.proxy_target.mock_method("proxy_pass", self._proxy_pass)
         worker = WechatMessageProxyWorker(self.io_loop, [self.proxy_target], False)
-        message = WechatMessage("<xml></xml>", "message_1")
+        message = WechatMessage("<xml></xml>", "test_user", message_id="message_1")
         worker.proxy_message(message)
 
         self.assertIsNotNone(self.proxy_passed_message)
@@ -52,7 +52,7 @@ class WechatMessageProxyWorkerTestCase(AsyncTestCase, TestCaseMixin):
         worker = WechatMessageProxyWorker(self.io_loop, [self.proxy_target], retry_period=0.01)
 
         for i in range(1, 101):
-            message = WechatMessage("<xml></xml>", "message_{}".format(i))
+            message = WechatMessage("<xml></xml>", "test_user", message_id="message_{}".format(i))
             yield worker.proxy_message(message)
             self.assertIsNotNone(self.proxy_passed_message)
             self.assertEqual("message_{}".format(i), self.proxy_passed_message.id)

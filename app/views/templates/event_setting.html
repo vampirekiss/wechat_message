@@ -1,0 +1,33 @@
+{% extends "_layout.html" %}
+
+{% block body %}
+
+<script type="text/javascript" src="static/js/event_setting.js"></script>
+
+<div ng-controller="EventSettingCtrl">
+    <div class="event_setting_container">
+        <div class="event_setting_row" data-ng-repeat="(key, value) in setting">
+            <div class="event_setting_item label_item"><label data-ng-bind="translate(key).label + '：'"></label></div>
+            <div class="event_setting_item content_item">
+                <div class="content">
+                    <textarea data-ng-model="setting[key]" rows="10" cols="80"></textarea>
+                </div>
+                <p class="tip" data-ng-bind="translate(key).tip"></p>
+            </div>
+        </div>
+        <div class="event_setting_row">
+            <div class="event_setting_item label_item"></div>
+            <div class="event_setting_item content_item">
+                <a href="javascript:void(0);" class="btn btn_primary" data-ng-click="save_setting()">保存设置</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    {% autoescape None %}
+    var setting = {{json_encode(setting)}};
+</script>
+
+{% end %}

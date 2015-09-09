@@ -131,8 +131,8 @@
 </div>
 
 <script type="text/javascript">
-    var button_json = '{{json_encode(buttons)}}'.replace(/&quot;/g, '"');
-    var buttons = eval('(' + button_json + ')');
+    {% autoescape None %}
+    var buttons = {{json_encode(buttons)}};
 </script>
 
 {% end %}

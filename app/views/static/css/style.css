@@ -7,6 +7,7 @@ body {
 
 body, h1, h2, h3, h4, h5, h6, p, ul, ol, dl, dd, fieldset, textarea {
     margin: 0;
+    padding: 0;
 }
 
 input, textarea, button, a {
@@ -32,12 +33,49 @@ a {
     left: 0;
     width: 100%;
     height: 100%;
-    filter: alpha(opacity = 75);
+    filter: alpha(opacity=75);
     -moz-opacity: .75;
     -khtml-opacity: .75;
     opacity: .75;
     background-color: #000;
     z-index: 9998;
+}
+
+.nav {
+    background-color: #444;
+    padding: 0;
+    margin: 0;
+}
+
+.nav ul {
+    list-style: none;
+    width: 1060px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.nav li {
+    width: 120px;
+    height: 50px;
+    line-height: 50px;
+    display: inline-block;
+}
+
+.nav a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+}
+
+.nav a:hover {
+    background-color: #005f5f;
+    transition: .3s background-color;
+}
+
+.nav li.active a {
+    background-color: #fff;
+    color: #444;
 }
 
 #wrapper {
@@ -67,7 +105,7 @@ a {
 }
 
 .cell-right {
-    width:800px;
+    width: 800px;
 }
 
 .title_bar {
@@ -85,7 +123,7 @@ a {
 
 .menu_items .icons {
     float: right;
-    padding-right:10px;
+    padding-right: 10px;
 }
 
 .icon16_common {
@@ -156,6 +194,7 @@ a {
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
 }
+
 .dialog_hd h3 {
     font-weight: 400;
     font-style: normal;
@@ -169,11 +208,11 @@ a {
     position: relative;
     padding: 0 20px;
     background-color: #f4f5f9;
-    background-image: -moz-linear-gradient(top,#f4f5f9 0,#f4f5f9 100%);
-    background-image: -webkit-gradient(linear,0 0,0 100%,from(#f4f5f9),to(#f4f5f9));
-    background-image: -webkit-linear-gradient(top,#f4f5f9 0,#f4f5f9 100%);
-    background-image: -o-linear-gradient(top,#f4f5f9 0,#f4f5f9 100%);
-    background-image: linear-gradient(to bottom,#f4f5f9 0,#f4f5f9 100%);
+    background-image: -moz-linear-gradient(top, #f4f5f9 0, #f4f5f9 100%);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f4f5f9), to(#f4f5f9));
+    background-image: -webkit-linear-gradient(top, #f4f5f9 0, #f4f5f9 100%);
+    background-image: -o-linear-gradient(top, #f4f5f9 0, #f4f5f9 100%);
+    background-image: linear-gradient(to bottom, #f4f5f9 0, #f4f5f9 100%);
 }
 
 .dialog_bd {
@@ -187,6 +226,7 @@ a {
     padding: 16px 0;
     background-color: #f4f5f9;
 }
+
 .dialog_ft {
     margin: 0;
     padding: 25px 0;
@@ -317,7 +357,6 @@ a {
     text-align: center;
 }
 
-
 .btn {
     display: inline-block;
     overflow: visible;
@@ -337,22 +376,22 @@ a {
 
 .btn_primary {
     background-color: #44b549;
-    background-image: -moz-linear-gradient(top,#44b549 0,#44b549 100%);
-    background-image: -webkit-gradient(linear,0 0,0 100%,from(#44b549),to(#44b549));
-    background-image: -webkit-linear-gradient(top,#44b549 0,#44b549 100%);
-    background-image: -o-linear-gradient(top,#44b549 0,#44b549 100%);
-    background-image: linear-gradient(to bottom,#44b549 0,#44b549 100%);
+    background-image: -moz-linear-gradient(top, #44b549 0, #44b549 100%);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#44b549), to(#44b549));
+    background-image: -webkit-linear-gradient(top, #44b549 0, #44b549 100%);
+    background-image: -o-linear-gradient(top, #44b549 0, #44b549 100%);
+    background-image: linear-gradient(to bottom, #44b549 0, #44b549 100%);
     border-color: #44b549;
     color: #fff;
 }
 
 .btn_default {
     background-color: #fff;
-    background-image: -moz-linear-gradient(top,#fff 0,#fff 100%);
-    background-image: -webkit-gradient(linear,0 0,0 100%,from(#fff),to(#fff));
-    background-image: -webkit-linear-gradient(top,#fff 0,#fff 100%);
-    background-image: -o-linear-gradient(top,#fff 0,#fff 100%);
-    background-image: linear-gradient(to bottom,#fff 0,#fff 100%);
+    background-image: -moz-linear-gradient(top, #fff 0, #fff 100%);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(#fff));
+    background-image: -webkit-linear-gradient(top, #fff 0, #fff 100%);
+    background-image: -o-linear-gradient(top, #fff 0, #fff 100%);
+    background-image: linear-gradient(to bottom, #fff 0, #fff 100%);
     border-color: #e7e7eb;
     color: #222;
 }
@@ -366,4 +405,21 @@ a {
 
 .icon_menu_action.add {
     background: url("../images/advanced_menu_setting_z25404f.png") 0 0 no-repeat;
+}
+
+.event_setting_row {
+    margin-bottom: 20px;
+}
+
+.event_setting_item {
+    display: inline-block;
+}
+
+.event_setting_row .label_item {
+    vertical-align: top;
+    width: 150px;
+}
+
+.event_setting_row .tip {
+    color: #8d8d8d;
 }

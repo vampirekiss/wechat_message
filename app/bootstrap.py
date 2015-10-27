@@ -6,7 +6,9 @@ from tornado.ioloop import IOLoop
 from app.api.token import TokenHandler
 from app.api.message import MessageHandler
 from app.api.menu import MenuHandler
+from app.api.event_setting import EventSettingHandler
 from app.views.menu import MenuViewHandler
+from app.views.event_setting import EventSettingViewHandler
 from app.provider import ServiceProvider
 
 import json
@@ -56,13 +58,27 @@ request_handlers = [
             wechat_access_token_provider=_service_provider.wechat_access_token_provider
         )
     ),
+    (
+        r"/api/v1/event-setting", EventSettingHandler,
+        dict(
+            auth_compare_func=_basic_auth_compare_func,
+            wechat_event_setting=_service_provider.wechat_event_setting
+        )
+    ),
     # view handlers
     (
-        r"/menu", MenuViewHandler,
+        r"^/$|/menu", MenuViewHandler,
         dict(
             auth_compare_func=_basic_auth_compare_func,
             wechat_client=_service_provider.wechat_client,
             wechat_access_token_provider=_service_provider.wechat_access_token_provider
+        )
+    ),
+    (
+        r"/event-setting", EventSettingViewHandler,
+        dict(
+            auth_compare_func=_basic_auth_compare_func,
+            wechat_event_setting=_service_provider.wechat_event_setting
         )
     )
 ]

@@ -27,17 +27,26 @@ class WechatMessageProxyTarget(LoggingTrait):
 
 
 class WechatMessageProxy(LoggingTrait):
-    def __init__(self, message_proxy_worker, message_parser):
-        self.message_proxy_worker = message_proxy_worker
+    def __init__(self, token_provider, message_parser, message_proxy_worker, message_event_handlers):
+        self.token_provider = token_provider
         self.parser = message_parser
+        self.message_proxy_worker = message_proxy_worker
+        self.message_event_handlers = message_event_handlers
 
     @coroutine
     def proxy_message(self, message_xml):
         message = self.parser.parse(message_xml)
 
-        if message is not None:
-            self.message_proxy_worker.proxy_message(message)
+        if message is None:
             return
+
+        if message.is_event():
+            access_token = yield self.token_provider.get_access_token()
+            if access_token is not None:
+                for handler in self.message_event_handlers:
+                    yield handler.handle(access_token.token, message)
+        else:
+            yield self.message_proxy_worker.proxy_message(message)
 
         # 忽略不能解析的消息
         # self.get_logger().error(

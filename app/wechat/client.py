@@ -16,6 +16,18 @@ class WechatClient(object):
         self.http_client = http_client or AsyncHTTPClient()
 
     @coroutine
+    def _post_json(self, access_token, json_str, path):
+        params = {
+            'access_token': access_token
+        }
+        url = '{}{}?{}'.format(self.api_url, path, urllib.urlencode(params))
+        response = yield self.http_client.fetch(
+            url, method='POST',
+            headers={"Content-Type": "application/json"}, body=json_str
+        )
+        raise Return(json.loads(response.body))
+
+    @coroutine
     def get_access_token(self, grant_type='client_credential'):
         if grant_type != 'client_credential':
             raise NotImplementedError
@@ -38,13 +50,13 @@ class WechatClient(object):
         raise Return(json.loads(response.body))
 
     @coroutine
-    def create_menu(self, access_token, menus_json_str):
-        params = {
-            'access_token': access_token
-        }
-        url = '{}/menu/create?{}'.format(self.api_url, urllib.urlencode(params))
-        response = yield self.http_client.fetch(
-            url, method='POST',
-            headers={"Content-Type": "application/json"}, body=menus_json_str
-        )
-        raise Return(json.loads(response.body))
+    def create_menu(self, access_token, menu_json_str):
+        result = yield self._post_json(access_token, menu_json_str, '/menu/create')
+        raise Return(result)
+
+    @coroutine
+    def send_custom_message(self, access_token, message):
+        message_json = json.dumps(message, ensure_ascii=False)
+        result = yield self._post_json(access_token, message_json, '/message/custom/send')
+        raise Return(result)
+

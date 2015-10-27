@@ -1,12 +1,21 @@
 {% include "_header.html" %}
 
-<div id="wrapper">
-
+<div id="page-header">
     <div class="flash-container">
         {% for category,message in get_flashed_messages() %}
-            <div class="alert alert-{{ category }}" type="{{ category }}">{{ message }}</div>
+        <div class="alert alert-{{ category }}" type="{{ category }}">{{ message }}</div>
         {% end %}
     </div>
+
+    <div class="nav">
+        <ul>
+            <li {%if view_name == 'menu'%}class="active"{%end%}><a href="./menu">菜单管理</a></li>
+            <li {%if view_name == 'event-setting'%}class="active"{%end%}><a href="./event-setting">事件消息设置</a></li>
+        </ul>
+    </div>
+</div>
+
+<div id="wrapper">
 
     <div data-ng-app>
         {% block body %}{% end %}

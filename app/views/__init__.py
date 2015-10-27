@@ -4,9 +4,12 @@
 class ViewHandlerMixin(object):
     flashed_messages = []
 
+    _view_name = ''
+
     def render_template(self, template_name, **kwargs):
         kwargs["request_path"] = self.request.path
         kwargs["get_flashed_messages"] = self.get_flashed_messages
+        kwargs['view_name'] = self._view_name
         self.render(template_name, **kwargs)
 
     def flash(self, message, category='info'):

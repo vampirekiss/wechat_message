@@ -27,7 +27,7 @@ class MessageHandler(BaseHandler):
     @coroutine
     def post(self):
         if self._is_valid_request():
-            yield self.wechat_message_proxy.proxy_message(self.request.body)
+            self.wechat_message_proxy.proxy_message(self.request.body)
             self.write('success')
         else:
             self._output_error_response(400, "bad signature")

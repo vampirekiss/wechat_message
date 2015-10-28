@@ -68,6 +68,8 @@ class WechatMassSendJobFinishHandler(WechatEventHandler):
         msg_id = et.find('MsgID').text
 
         callback_info = {
+            'status': et.find('Status').text,
+            'total_count': et.find('TotalCount').text,
             'sent_count': et.find('SentCount').text,
             'error_count': et.find('ErrorCount').text,
             'filter_count': et.find('FilterCount').text

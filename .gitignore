@@ -2,3 +2,4 @@
 .idea/
 app/config.json
 app/event_setting.cfg
+.DS_Store

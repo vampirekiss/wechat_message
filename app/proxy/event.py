@@ -5,6 +5,10 @@ from abc import ABCMeta, abstractmethod
 from tornado.gen import coroutine
 from app.wechat.message import WechatEventSetting
 
+from xml.etree import ElementTree
+
+import json
+
 
 class WechatEventHandler(object):
     __metaclass__ = ABCMeta
@@ -49,3 +53,24 @@ class WechatReplyTextMessageHandler(WechatEventHandler):
 
         yield self.wechat_client.send_custom_message(access_token, reply_message)
 
+
+class WechatMassSendJobFinishHandler(WechatEventHandler):
+    def __init__(self, redis):
+        self.redis = redis
+
+    @coroutine
+    def _handle(self, access_token, message):
+        if message.event_type != 'MASSSENDJOBFINISH':
+            return
+
+        et = ElementTree.fromstring(message.xml)
+
+        msg_id = et.find('MsgID').text
+
+        callback_info = {
+            'sent_count': et.find('SentCount').text,
+            'error_count': et.find('ErrorCount').text,
+            'filter_count': et.find('FilterCount').text
+        }
+
+        self.redis.hset('msg_call_back', msg_id, json.dumps(callback_info))

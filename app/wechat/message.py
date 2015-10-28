@@ -40,12 +40,15 @@ class WechatMessageParser(object):
         try:
             et = ElementTree.fromstring(message_xml)
             from_user_name = et.find('FromUserName').text
-            message_id_node = et.find('MsgId')
-            if message_id_node is not None:
-                return WechatMessage(message_xml, from_user_name, message_id=message_id_node.text)
+
             message_event_node = et.find('Event')
             if message_event_node is not None:
                 return WechatMessage(message_xml, from_user_name, event_type=message_event_node.text)
+
+            message_id_node = et.find('MsgId')
+            if message_id_node is not None:
+                return WechatMessage(message_xml, from_user_name, message_id=message_id_node.text)
+            
             return None
         except:
             return None
